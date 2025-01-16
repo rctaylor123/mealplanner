@@ -1,10 +1,10 @@
 import { PublicLayout } from "@/components/public/public-layout"
-import { LoginForm } from "@/components/public/login-form"
+import { SignupForm } from "@/components/public/signup-form"
 
 export default function LoginPage() {
     return (
         <PublicLayout>
-            <LoginForm />
+            <SignupForm />
         </PublicLayout>
     )
 }
