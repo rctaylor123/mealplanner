@@ -5,30 +5,15 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 
-import { getUser } from '@/services/account-management'
+export async function getUser() {
+  const supabase = await createClient();
 
-export async function login(email: string, password: string) {
-  const supabase = await createClient()
+  
+    let { data: profile, error } = await supabase
+    .from('profile')
+    .select('*')
 
-  const data = {
-    email: email,
-    password: password
-  }
-
-  const { error } = await supabase.auth.signInWithPassword(data)
-
-  if (error) {
-    redirect('/error')
-  }
-
-  let profile;
-  getUser().then(result => {
-    profile = result;
-    console.log(profile);
-  });
-
-  revalidatePath('/dashboard', 'layout')
-  redirect('/dashboard')
+    return profile;
 }
 
 export async function signup(formData: FormData) {
