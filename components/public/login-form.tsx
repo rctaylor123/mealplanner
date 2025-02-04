@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
 import { login } from "@/app/auth/actions"
 import Link from "next/link"
@@ -20,9 +20,9 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const formSchema = z.object({
-  username: z.string().email(),
+  email: z.string().email(),
   password: z.string()
-})
+}).required()
 
 export function LoginForm({
   className,
@@ -33,13 +33,13 @@ export function LoginForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: ""
     }
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values.username, values.password);
+    login(values.email, values.password);
   }
 
   return (
@@ -59,10 +59,10 @@ export function LoginForm({
                   <div className="grid gap-2">
                     <FormField
                       control={form.control}
-                      name="username"
+                      name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username</FormLabel>
+                          <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input placeholder="me@example.com" {...field} />
                           </FormControl>
