@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/src/utils/supabase/server'
 
 import { getUser } from '@/src/services/account-management'
+import { getProfile } from '@/src/actions/profile-action'
+
 
 export async function login(email: string, password: string) {
   const supabase = await createClient()
@@ -16,6 +18,7 @@ export async function login(email: string, password: string) {
   }
 
   const { error } = await supabase.auth.signInWithPassword(data)
+  const { data: { user } } = await supabase.auth.getUser()
 
   if (error) {
     redirect('/error')
@@ -26,6 +29,12 @@ export async function login(email: string, password: string) {
     profile = result;
     console.log(profile);
   });
+
+  if (user != null) {
+    console.log("Getting profile..")
+    const profile2 = await getProfile(user.id);
+    console.log(profile2);
+  }
 
   revalidatePath('/dashboard', 'layout')
   redirect('/dashboard')
