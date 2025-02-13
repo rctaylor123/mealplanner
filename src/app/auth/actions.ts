@@ -7,6 +7,7 @@ import { createClient } from '@/src/utils/supabase/server'
 
 import { getUser } from '@/src/services/account-management'
 import { getProfile } from '@/src/actions/profile-action'
+import { Profile } from '@/src/db/schema/public'
 
 
 export async function login(email: string, password: string) {
@@ -25,15 +26,21 @@ export async function login(email: string, password: string) {
   }
 
   let profile;
-  getUser().then(result => {
-    profile = result;
-    console.log(profile);
-  });
+  // getUser().then(result => {
+  //   profile = result;
+  //   console.log(profile);
+  // });
 
   if (user != null) {
     console.log("Getting profile..")
-    const profile2 = await getProfile(user.id);
-    console.log(profile2);
+    const profile2 = await getProfile(user.id).then(d => {
+      console.log("full resp: " + d.toString());
+      console.log("single resp: " + d[0].toString());
+      let p: Profile = d[0];
+      console.log("typed resp: " + p.toString());    
+      console.log("first name: " + p.firstName);    
+    });
+    
   }
 
   revalidatePath('/dashboard', 'layout')

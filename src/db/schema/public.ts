@@ -6,6 +6,7 @@ export const profile = pgTable("profile", {
     authId: text("auth_id").notNull().references((): AnyPgColumn => users.id),
     firstName: text("first_name").notNull(),
     lastName: text("last_name").notNull(),
+    birthday: date("birthday"),
     familyId: integer("family_id").references((): AnyPgColumn => family.id)
 });
 
