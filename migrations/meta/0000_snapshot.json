@@ -106,12 +106,8 @@
           "tableFrom": "profile",
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "auth_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["auth_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -120,12 +116,8 @@
           "tableFrom": "profile",
           "tableTo": "family",
           "schemaTo": "public",
-          "columnsFrom": [
-            "family_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["family_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -138,9 +130,7 @@
           "name": "Enable users to view their own data only",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(( SELECT auth.uid() AS uid) = auth_id)"
         }
       },

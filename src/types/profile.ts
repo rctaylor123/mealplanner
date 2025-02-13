@@ -1,8 +1,8 @@
-import { Family } from "./family";
+import { Family } from './family';
 
 export type Profile = {
-    id: number;
-    firstName: string;
-    lastName: string;
-    family: Family
-}
+  id: number;
+  firstName: string;
+  lastName: string;
+  family: Family;
+};
