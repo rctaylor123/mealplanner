@@ -1,6 +1,6 @@
 {
-  "id": "00000000-0000-0000-0000-000000000000",
-  "prevId": "",
+  "id": "6b7d3c9b-9104-4665-9b6e-bb5316ee45b1",
+  "prevId": "607efa3b-07ec-4073-9f48-16cabc4acfab",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -16,13 +16,13 @@
           "identity": {
             "type": "byDefault",
             "name": "family_id_seq",
+            "schema": "public",
             "increment": "1",
-            "minValue": "1",
-            "maxValue": "9223372036854775807",
             "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854776000",
             "cache": "1",
-            "cycle": false,
-            "schema": "public"
+            "cycle": false
           }
         },
         "name": {
@@ -43,9 +43,9 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {},
       "policies": {},
-      "isRLSEnabled": true
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
     "public.profile": {
       "name": "profile",
@@ -59,13 +59,13 @@
           "identity": {
             "type": "byDefault",
             "name": "profile_id_seq",
+            "schema": "public",
             "increment": "1",
-            "minValue": "1",
-            "maxValue": "9223372036854775807",
             "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854776000",
             "cache": "1",
-            "cycle": false,
-            "schema": "public"
+            "cycle": false
           }
         },
         "auth_id": {
@@ -85,12 +85,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
-        },
-        "birthday": {
-          "name": "birthday",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false
         },
         "family_id": {
           "name": "family_id",
@@ -119,7 +113,6 @@
           "name": "profile_family_id_fkey",
           "tableFrom": "profile",
           "tableTo": "family",
-          "schemaTo": "public",
           "columnsFrom": [
             "family_id"
           ],
@@ -132,7 +125,6 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraints": {},
       "policies": {
         "Enable users to view their own data only": {
           "name": "Enable users to view their own data only",
@@ -144,7 +136,45 @@
           "using": "(( SELECT auth.uid() AS uid) = auth_id)"
         }
       },
-      "isRLSEnabled": true
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "auth.users": {
+      "name": "users",
+      "schema": "auth",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_sign_in_at": {
+          "name": "last_sign_in_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
   "enums": {},
@@ -154,11 +184,8 @@
   "policies": {},
   "views": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "internal": {
     "tables": {}
   }
 }
