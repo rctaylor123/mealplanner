@@ -1,4 +1,4 @@
-import { pgSchema, pgTable, bigint, text, timestamp, foreignKey, pgPolicy, uuid, date } from "drizzle-orm/pg-core"
+import { pgSchema, pgTable, bigint, text, timestamp, foreignKey, pgPolicy, uuid } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 const authSchema = pgSchema("auth");

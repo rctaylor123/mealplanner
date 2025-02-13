@@ -1,10 +1,7 @@
 import { Search } from "lucide-react"
 import { Input } from "@/src/components/ui/input"
 
-export function NavSearch({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function NavSearch({}: React.ComponentPropsWithoutRef<"div">) {
   return (
       <form className="ml-auto flex-1 sm:flex-initial">
         <div className="relative">

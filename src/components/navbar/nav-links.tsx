@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { cn } from "@/src/lib/utils"
 import {
   NavigationMenu,
   NavigationMenuItem,

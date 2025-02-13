@@ -1,7 +1,6 @@
 "use server"
 
-import { eq, not } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
 import { profile } from "@/src/db/schema";
 

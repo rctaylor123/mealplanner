@@ -11,10 +11,7 @@ import { CircleUser } from "lucide-react"
 import { logout } from "@/src/app/auth/actions"
 
 
-export function AccountDropdown({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function AccountDropdown({}: React.ComponentPropsWithoutRef<"div">) {
   return (
     <>
         <DropdownMenu>

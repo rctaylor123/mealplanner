@@ -4,10 +4,7 @@ import { AccountDropdown } from "./account-dropdown"
 import { NavLinks } from "./nav-links"
 import { NavSearch } from "./nav-search"
 
-export function Navbar({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function Navbar({}: React.ComponentPropsWithoutRef<"div">) {
   return (
     
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
