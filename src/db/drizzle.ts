@@ -3,4 +3,4 @@ import { drizzle } from "drizzle-orm/postgres-js";
 
 config({ path: ".env"});
 
-export const db = drizzle({connection: process.env.DATABASE_URL!, casing: "snake_case"});
+export const db = drizzle({connection: process.env.DATABASE_URL!, logger: true, casing: "snake_case"});
