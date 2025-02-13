@@ -7,7 +7,7 @@ import { createClient } from '@/src/utils/supabase/server'
 
 import { getUser } from '@/src/services/account-management'
 import { getProfile } from '@/src/actions/profile-action'
-import { Profile } from '@/src/db/schema/public'
+import { Profile } from '@/src/db/schema'
 
 
 export async function login(email: string, password: string) {
@@ -34,10 +34,10 @@ export async function login(email: string, password: string) {
   if (user != null) {
     console.log("Getting profile..")
     const profile2 = await getProfile(user.id).then(d => {
-      console.log("full resp: " + d.toString());
-      console.log("single resp: " + d[0].toString());
+      console.log("full resp: " + JSON.stringify(d));
+      console.log("single resp: " + JSON.stringify(d[0]));
       let p: Profile = d[0];
-      console.log("typed resp: " + p.toString());    
+      console.log("typed resp: " + JSON.stringify(p));    
       console.log("first name: " + p.firstName);    
     });
     
