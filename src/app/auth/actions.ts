@@ -5,37 +5,28 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/src/utils/supabase/server';
 
-import { getProfile } from '@/src/actions/profile-action';
+import { createFamily } from '@/src/actions/family-actions';
+import { getProfile, updateProfile } from '@/src/actions/profile-action';
 import { Profile } from '@/src/db/schema';
 
 export async function login(email: string, password: string) {
   const supabase = await createClient();
 
-  const data = {
+  const creds = {
     email: email,
     password: password
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.signInWithPassword(creds);
 
-  if (error || user == null) {
+  if (error || data.user == null) {
     redirect('/error');
   }
 
-  await getProfile(user.id).then((d) => {
-    const profile: Profile = d[0];
+  await checkFamily(data.user.id);
 
-    if (profile.familyId == null) {
-      revalidatePath('/settings/family', 'layout');
-      redirect('/settings/family');
-    } else {
-      revalidatePath('/dashboard', 'layout');
-      redirect('/dashboard');
-    }
-  });
+  revalidatePath('/dashboard', 'layout');
+  redirect('/dashboard');
 }
 
 export async function signup(
@@ -46,9 +37,7 @@ export async function signup(
 ) {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
+  const newuser = {
     email: email,
     password: password,
     options: {
@@ -59,11 +48,13 @@ export async function signup(
     }
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data, error } = await supabase.auth.signUp(newuser);
 
-  if (error) {
+  if (error || data.user == null) {
     redirect('/error');
   }
+
+  await checkFamily(data.user.id);
 
   revalidatePath('/dashboard', 'layout');
   redirect('/dashboard');
@@ -79,4 +70,14 @@ export async function logout() {
 
   revalidatePath('/login', 'layout');
   redirect('/login');
+}
+
+async function checkFamily(userId: string) {
+  const profile: Profile | undefined = await getProfile(userId);
+
+  if (profile && profile.familyId == null) {
+    const result = await createFamily({ name: profile.lastName });
+    profile.familyId = result[0].id;
+    await updateProfile(profile);
+  }
 }
