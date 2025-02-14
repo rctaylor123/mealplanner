@@ -25,8 +25,8 @@ export async function login(email: string, password: string) {
 
   await checkFamily(data.user.id);
 
-  revalidatePath('/dashboard', 'layout');
-  redirect('/dashboard');
+  revalidatePath('/', 'layout');
+  redirect('/');
 }
 
 export async function signup(
@@ -56,8 +56,8 @@ export async function signup(
 
   await checkFamily(data.user.id);
 
-  revalidatePath('/dashboard', 'layout');
-  redirect('/dashboard');
+  revalidatePath('/', 'layout');
+  redirect('/');
 }
 
 export async function logout() {

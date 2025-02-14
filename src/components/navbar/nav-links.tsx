@@ -19,8 +19,8 @@ export function NavLinks() {
       <span className='sr-only'>Acme Inc</span>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavLink href='/docs' title='Meals' />
-          <NavLink href='/docs' title='Documentation' />
+          <NavLink href='/' title='Plans' />
+          <NavLink href='/meals' title='Meals' />
         </NavigationMenuList>
       </NavigationMenu>
     </nav>
