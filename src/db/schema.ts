@@ -71,3 +71,5 @@ export const profile = pgTable(
 );
 
 export type Profile = typeof profile.$inferSelect;
+export type Family = typeof family.$inferSelect;
+export type NewFamily = typeof family.$inferInsert;
