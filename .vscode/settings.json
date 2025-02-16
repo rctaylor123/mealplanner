@@ -21,8 +21,8 @@
   "testing.automaticallyOpenTestResults": "neverOpen", // Don't open the test results automatically
 
   "files.associations": {
-        "*.css": "tailwindcss"
-    },
+    "*.css": "tailwindcss"
+  },
 
   // I18n
   "i18n-ally.localesPaths": ["src/locales"],
